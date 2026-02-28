@@ -3,9 +3,11 @@ const express=require('express')    //common js
 // import db from './db.js'      //es modules
 const db=require('./db')     //connect it
 const app = express()
+require('dotenv').config();
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+const PORT=process.env.PORT || 3000;
 
 // const Person=require('./models/Person.js')
 // const MenuItem=require('./models/MenuItem.js')
@@ -126,6 +128,6 @@ app.use('/person',personRoutes);
 app.use('/menu',menuItemRoutes);
 
 //comment added
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log('Server is running on http://localhost:3000')
 })
