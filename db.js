@@ -9,11 +9,6 @@ const mongoURL=process.env.MONGODB_URL;  //online database-->mongodb atlas
 
 //set up mongodb connection
 mongoose.connect(mongoURL);
-// old version
-// mongoose.connect(mongoURL,{
-//     useNewUrlParser:true,
-//     useUnifiedTopology:true
-// })
 
 //get the default connection
 //mongoose maintains default connection object representing the mongodv connection
