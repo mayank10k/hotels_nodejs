@@ -12,6 +12,13 @@ const PORT=process.env.PORT || 3000;
 // const Person=require('./models/Person.js')
 // const MenuItem=require('./models/MenuItem.js')
 
+//Middleware functions
+const logRequest=(req,res,next)=>{
+  console.log(`[${new Date().toLocaleString()}] Request made to : ${req.originalUrl}`);
+  next();  //move on to the next phase
+}
+
+app.use(logRequest);   //apply logging to all end points or routes
 app.get('/', (req, res) => {
   res.send('Welcome to our Hotel ... How are you?')
 })
@@ -124,8 +131,8 @@ app.get('/', (req, res) => {
 const personRoutes=require('./routes/personRoutes');
 const menuItemRoutes=require('./routes/menuItemRoutes');
 // use the routers
-app.use('/person',personRoutes);
-app.use('/menu',menuItemRoutes);
+app.use('/person',personRoutes);  //if want to use middleware function here we'll write it inside it
+app.use('/menu',menuItemRoutes);   
 
 //comment added-->either at given port or 3000
 app.listen(PORT, () => {
