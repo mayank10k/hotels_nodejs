@@ -1,16 +1,13 @@
 // import express from 'express'
 const express=require('express')    //common js
-// import db from './db.js'      //es modules
 const db=require('./db')     //connect it
 const app = express()
 require('dotenv').config();
-
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const PORT=process.env.PORT || 3000;
+const passport=require('./auth');
 
-// const Person=require('./models/Person.js')
-// const MenuItem=require('./models/MenuItem.js')
 
 //Middleware functions
 const logRequest=(req,res,next)=>{
@@ -19,6 +16,11 @@ const logRequest=(req,res,next)=>{
 }
 
 app.use(logRequest);   //apply logging to all end points or routes
+
+app.use(passport.initialize());
+
+const localAuthMiddleware=passport.authenticate('local',{session:false});
+
 app.get('/', (req, res) => {
   res.send('Welcome to our Hotel ... How are you?')
 })
@@ -131,8 +133,8 @@ app.get('/', (req, res) => {
 const personRoutes=require('./routes/personRoutes');
 const menuItemRoutes=require('./routes/menuItemRoutes');
 // use the routers
-app.use('/person',personRoutes);  //if want to use middleware function here we'll write it inside it
-app.use('/menu',menuItemRoutes);   
+app.use('/person',localAuthMiddleware,personRoutes);  //if want to use middleware function here we'll write it inside it
+app.use('/menu',menuItemRoutes);   //for authenticating any write pass it inside this fucnttion
 
 //comment added-->either at given port or 3000
 app.listen(PORT, () => {
