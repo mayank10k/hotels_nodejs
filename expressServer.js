@@ -10,12 +10,12 @@ const passport=require('./auth');
 
 
 //Middleware functions
-const logRequest=(req,res,next)=>{
-  console.log(`[${new Date().toLocaleString()}] Request made to : ${req.originalUrl}`);
-  next();  //move on to the next phase
-}
+// const logRequest=(req,res,next)=>{
+//   // console.log(`[${new Date().toLocaleString()}] Request made to : ${req.originalUrl}`);
+//   next();  //move on to the next phase
+// }
 
-app.use(logRequest);   //apply logging to all end points or routes
+// app.use(logRequest);   //apply logging to all end points or routes
 
 app.use(passport.initialize());
 
