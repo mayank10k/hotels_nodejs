@@ -136,7 +136,7 @@ const menuItemRoutes=require('./routes/menuItemRoutes');
 app.use('/person',localAuthMiddleware,personRoutes);  //if want to use middleware function here we'll write it inside it
 app.use('/menu',menuItemRoutes);   //for authenticating any write pass it inside this fucnttion
 
-//comment added-->either at given port or 3000
+//-->either at given port or 3000
 app.listen(PORT, () => {
   console.log('Server is running on http://localhost:3000')
 })
