@@ -1,8 +1,9 @@
 const express=require('express');
 const router=express.Router();
 const Person=require('./../models/Person.js')
+const {jwtAuthMiddleware,generateToken}=require('./../jwt')
 
-router.post('/',async(req,res)=>{
+router.post('/signup',async(req,res)=>{
   try{
     const data=req.body   
     const newPerson=new Person(data);
@@ -10,7 +11,15 @@ router.post('/',async(req,res)=>{
     //save newperson to database
     const response=await newPerson.save();  //will until it gets saved-->if a error comes it will directly go to the catch block
     console.log("data saved");
-    res.status(200).json(response);
+
+    const payload={
+      id:response.id,
+      username:response.username
+    }
+    console.log(JSON.stringify(payload));
+    const token=generateToken(payload);
+    console.log("token is : ",token);
+    res.status(200).json({response:response,token:token});
 
 
   }catch(err){

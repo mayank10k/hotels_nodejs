@@ -133,7 +133,7 @@ app.get('/', (req, res) => {
 const personRoutes=require('./routes/personRoutes');
 const menuItemRoutes=require('./routes/menuItemRoutes');
 // use the routers
-app.use('/person',localAuthMiddleware,personRoutes);  //if want to use middleware function here we'll write it inside it
+app.use('/person',personRoutes);  //if want to use middleware function here we'll write it inside it
 app.use('/menu',menuItemRoutes);   //for authenticating any write pass it inside this fucnttion
 
 //-->either at given port or 3000
